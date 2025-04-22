@@ -4,7 +4,7 @@
 
 ## NotiAPI - Central de Notificações Unificadas
 
-NotiAPI é um serviço SaaS que facilita o envio de notificações em vários canais (email, SMS, WhatsApp, Telegram, Slack, etc.) a partir de uma única API. Ela centraliza e simplifica o envio de notificações, otimizando a integração com diversos serviços de comunicação.
+NotiAPI é um serviço SaaS que facilita o envio de notificações em vários canais (email, SMS, WhatsApp, Telegram, etc.) a partir de uma única API. Ela centraliza e simplifica o envio de notificações, otimizando a integração com diversos serviços de comunicação.
 
 ---
 
