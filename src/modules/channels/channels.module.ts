@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Channel } from 'src/entities/Channels.entity';
 import { ChannelsController } from './channels.controller';
 import { ChannelsService } from './channels.service';
 
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forFeature([Channel])],
   controllers: [ChannelsController],
   providers: [ChannelsService],
 })
