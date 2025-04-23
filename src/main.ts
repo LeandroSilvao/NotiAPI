@@ -52,7 +52,7 @@ function swagger(app: INestApplication<any>) {
       display: none
     }
     .swagger-ui .topbar a {
-      content: url('https://raw.githubusercontent.com/LeandroSilvao/NotiAPI/refs/heads/main/src/assets/logo-sino.png');
+      content: url('https://raw.githubusercontent.com/LeandroSilvao/NotiAPI/refs/heads/main/src/assets/logo.png');
       max-width: 170px
     }
     .info {
