@@ -1,7 +1,11 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { ZodValidationPipe } from 'src/config/ZodValidationPipe.pipe';
-import { NotifyDto, NotifyDtoSchema } from 'src/schemas/Notify.schema';
+import { ZodValidationPipe } from 'src/common/pipes/ZodValidationPipe.pipe';
+import { NotifyResponseDto } from 'src/modules/notify/dto/NotifyResponseDto';
+import {
+  NotifyDto,
+  NotifyDtoSchema,
+} from 'src/modules/notify/schemas/Notify.schema';
 import NodeMailerEmail from 'src/services/nodemailer/NodeMailerEmail.service';
 import { NotifyService } from './notify.service';
 
@@ -14,10 +18,9 @@ export class NotifyController {
   ) {}
 
   @Post()
-  post(@Body(new ZodValidationPipe(NotifyDtoSchema)) body: NotifyDto) {
-    return {
-      message: 'Message sent successfully',
-      body,
-    };
+  post(
+    @Body(new ZodValidationPipe(NotifyDtoSchema)) body: NotifyDto,
+  ): Promise<NotifyResponseDto> {
+    return this.service.Notify(body);
   }
 }

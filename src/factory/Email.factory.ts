@@ -1,4 +1,4 @@
-import EmailEnum from 'src/enums/Email.enum';
+import { EmailEnum } from 'src/enums/Email.enum';
 import Email from 'src/interfaces/Email.interface';
 import AWSEmail from 'src/services/aws/AWSEmail.service';
 import MailSlurpEmail from 'src/services/mailslurp/MailSlurpEmai.service';

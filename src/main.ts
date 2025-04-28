@@ -1,12 +1,11 @@
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as compression from 'compression';
 import { json } from 'express';
-import { WinstonModule } from 'nest-winston';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { AppModule } from './app.module';
-import winstonConfig from './config/winston.config';
+import { CustomLogger } from './common/services/custom-logger.service';
 
 function configureApp(app: INestApplication<any>) {
   app.use(compression());
@@ -26,15 +25,19 @@ function swagger(app: INestApplication<any>) {
       'A NotiAPI centraliza e simplifica envios de notificações, como email, sms, whatsapp etc...',
     )
     .setVersion('1.0')
-    .setContact("Leandro Oliveira", "https://www.linkedin.com/in/leandro-oliveira-643561131/", "leandro_silva_o@outlook.com")
+    .setContact(
+      'Leandro Oliveira',
+      'https://www.linkedin.com/in/leandro-oliveira-643561131/',
+      'leandro_silva_o@outlook.com',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
 
-
   SwaggerModule.setup('docs', app, document, {
-    customSiteTitle: "NotiAPI",
-    customfavIcon: "https://raw.githubusercontent.com/LeandroSilvao/NotiAPI/refs/heads/main/src/assets/logo-sino.png",
+    customSiteTitle: 'NotiAPI',
+    customfavIcon:
+      'https://raw.githubusercontent.com/LeandroSilvao/NotiAPI/refs/heads/main/src/assets/logo-sino.png',
     customCss: `
     .swagger-ui {
       background-color: #FEFDFB;
@@ -66,8 +69,10 @@ function swagger(app: INestApplication<any>) {
 }
 
 async function bootstrap() {
-  const logger = WinstonModule.createLogger(winstonConfig);
-  const app = await NestFactory.create(AppModule, { logger });
+  const app = await NestFactory.create(AppModule, {
+    logger: new CustomLogger(),
+  });
+  const logger = new Logger('Bootstrap');
 
   const port = process.env.PORT || 3030;
 

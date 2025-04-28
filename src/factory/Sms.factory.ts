@@ -1,4 +1,4 @@
-import SmsEnum from 'src/enums/Sms.enum';
+import { SmsEnum } from 'src/enums/Sms.enum';
 import Sms from 'src/interfaces/Sms.interface';
 import MailSlurpSms from 'src/services/mailslurp/MailSlurpSms.service';
 import MessageBirdSms from 'src/services/messagebird/MessageBirdSms.service';
