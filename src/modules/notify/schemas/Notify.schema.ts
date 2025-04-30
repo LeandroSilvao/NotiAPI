@@ -1,5 +1,3 @@
-// src/notify/dto/notify.dto.ts
-
 import { z } from 'zod';
 
 export const NotifyRecipientType = {

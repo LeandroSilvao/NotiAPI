@@ -2,9 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { User } from './User.entity';
 
 @Entity('channels')
 export class Channel {
@@ -17,7 +20,7 @@ export class Channel {
   @Column({ nullable: true })
   description?: string;
 
-  @Column({ nullable: false })
+  @Column()
   enable: boolean;
 
   @CreateDateColumn()
@@ -25,4 +28,8 @@ export class Channel {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToMany(() => User, (user) => user.channels)
+  @JoinTable({ name: 'channels_users' }) // Nome correto da tabela de junção
+  users: User[];
 }

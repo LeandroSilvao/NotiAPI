@@ -10,11 +10,10 @@ const logger = winston.createLogger({
     timestamp(),
     label({ label: 'NOTI-API' }),
     printf(({ timestamp, level, message, context, trace, label }) => {
-      // Definindo indentação, mas mantendo o alinhamento correto
-      const indent = context === 'InstanceLoader' ? '  ' : ''; // Adiciona 2 espaços de indentação extra para InstanceLoader
+      const indent = context === 'InstanceLoader' ? '  ' : '';
       const logMessage = `${timestamp} [${label}] [${context ?? '-'}] ${level}: ${indent}${message}`;
       return trace ? `${logMessage}\n${trace}` : logMessage;
-    })
+    }),
   ),
   transports: [new winston.transports.Console()],
 });

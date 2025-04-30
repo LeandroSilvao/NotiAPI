@@ -15,19 +15,17 @@ export class ErrorHandlerService {
 
   handle(error: unknown, message?: string): never {
     if (error instanceof HttpException) {
-      throw error; // Se o erro já for uma HttpException, simplesmente o relança
+      throw error;
     }
 
     this.logger.error('An error occurred:', JSON.stringify(error));
 
-    // Tratar erro de falta de metadados
     if (error instanceof EntityMetadataNotFoundError) {
       throw new NotFoundException(
         message ? message + ' Entity not found' : 'Entity not found',
       );
     }
 
-    // Tratar erro de duplicação de entrada no banco de dados (único)
     if (error instanceof QueryFailedError) {
       const err = error as QueryFailedError & { code?: string };
 
@@ -37,13 +35,11 @@ export class ErrorHandlerService {
         );
       }
 
-      // Se o código do erro não for de duplicação, lançar erro genérico de falha na consulta
       throw new BadRequestException(
         message ? message + ' Database query failed' : 'Database query failed',
       );
     }
 
-    // Se nenhum dos casos acima for aplicável, lançar erro interno
     throw new InternalServerErrorException(
       message ? message + ' Internal server error' : 'Internal server error',
     );

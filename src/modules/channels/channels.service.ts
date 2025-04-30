@@ -18,6 +18,11 @@ export class ChannelsService {
     return this.repository.find({ where: { enable: true }, cache: true });
   }
 
+  findAllByUserId(id: string): Promise<Channel[]> {
+    this.logger.log(`Getting all enable channels by user id: ${id}`);
+    return this.repository.find({ where: { users: { id } } });
+  }
+
   async findByIds(Ids: string[]): Promise<Channel[]> {
     this.logger.log(`Finding channels by ids: ${Ids.join()}`);
 
@@ -30,13 +35,9 @@ export class ChannelsService {
       if (channels.length === 0 || Ids.length !== channels.length) {
         const foundIds = channels.map((channel) => channel.id);
         const notFoundIds = Ids.filter((id) => !foundIds.includes(id));
-
-        this.logger.error(
-          `Channels not found for IDs: ${notFoundIds.join(', ')}`,
-        );
-        throw new NotFoundException(
-          `Channels not found for IDs: ${notFoundIds.join(', ')}`,
-        );
+        const message = `Channels not found for IDs: ${notFoundIds.join(', ')}`;
+        this.logger.error(message);
+        throw new NotFoundException(message);
       }
 
       return channels;
